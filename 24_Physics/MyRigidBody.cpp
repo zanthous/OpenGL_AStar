@@ -329,7 +329,7 @@ bool MyRigidBody::IsColliding(MyRigidBody* const other)
 
 void MyRigidBody::AddToRenderList(void)
 {
-	if (m_bVisibleBS)
+	/*if (m_bVisibleBS)
 	{
 		if (m_uCollidingCount > 0)
 			m_pMeshMngr->AddWireSphereToRenderList(glm::translate(m_m4ToWorld, m_v3CenterL) * glm::scale(vector3(m_fRadius)), C_BLUE_CORNFLOWER);
@@ -349,7 +349,7 @@ void MyRigidBody::AddToRenderList(void)
 			m_pMeshMngr->AddWireCubeToRenderList(glm::translate(m_v3CenterG) * glm::scale(m_v3ARBBSize), C_YELLOW);
 		else
 			m_pMeshMngr->AddWireCubeToRenderList(glm::translate(m_v3CenterG) * glm::scale(m_v3ARBBSize), C_YELLOW);
-	}
+	}*/
 }
 bool MyRigidBody::IsInCollidingArray(MyRigidBody* a_pEntry)
 {

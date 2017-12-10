@@ -5,7 +5,8 @@ uint Mesh::m_uRenderCalls = 0;
 uint Mesh::GetStaticCount(void) { return m_nIndexer; }
 uint Mesh::GetRenderCallCount(void) { return m_uRenderCalls; }
 void Mesh::ResetRenderCallCount(void) { m_uRenderCalls = 0; }
-//  Mesh
+
+//Mesh
 void Mesh::Init(void)
 {
 	m_sName = "NULL";
@@ -502,6 +503,7 @@ void Mesh::AddQuad(vector3 a_vBottomLeft, vector3 a_vBottomRight, vector3 a_vTop
 	//C--D
 	//|  |
 	//A--B
+
 	//This will make the triangle A->B->C and then the triangle C->B->D
 	AddVertexPosition(a_vBottomLeft);
 	AddVertexPosition(a_vBottomRight);

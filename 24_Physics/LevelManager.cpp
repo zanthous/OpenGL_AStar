@@ -8,8 +8,17 @@ int Simplex::LevelManager::GetLevelWidth(void)
 {
 	return levelWidth;
 }
+void Simplex::LevelManager::Clear()
+{
+	loadedLevel.clear();
+	heightMap.clear();
+	objectMap.clear();
+	blockPositions.clear();
+}
 void Simplex::LevelManager::SetLevel(std::string levelName)
 {
+	Clear();
+
 	//file io
 	std::string fileName( "Levels/Level_" );
 	std::string fileExtension( ".txt" );

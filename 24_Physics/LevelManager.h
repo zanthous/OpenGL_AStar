@@ -36,6 +36,7 @@ namespace Simplex
 		LevelManager& operator=(LevelManager const& a_pOther);
 		~LevelManager(void);
 		void Release(void);
+		void Clear();
 		void Init(void);
 		
 	};

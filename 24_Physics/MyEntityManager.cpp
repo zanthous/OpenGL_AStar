@@ -175,18 +175,22 @@ void Simplex::MyEntityManager::Update(void)
 	}
 	
 	//check collisions
-	for (uint i = 0; i < m_uEntityCount; i++)
+	//for (uint i = 0; i < m_uEntityCount; i++)
+	//{
+	//	for (uint j = i + 1; j < m_uEntityCount; j++)
+	//	{
+	//		//if objects are colliding resolve the collision
+	//		if (m_mEntityArray[i]->IsColliding(m_mEntityArray[j]))
+	//		{
+	//			m_mEntityArray[i]->ResolveCollision(m_mEntityArray[j]);
+	//		}
+	//	}
+	//	//Update each entity
+	//	
+	//}
+	for( int index = 0; index < m_uEntityCount; index++ )
 	{
-		for (uint j = i + 1; j < m_uEntityCount; j++)
-		{
-			//if objects are colliding resolve the collision
-			if (m_mEntityArray[i]->IsColliding(m_mEntityArray[j]))
-			{
-				m_mEntityArray[i]->ResolveCollision(m_mEntityArray[j]);
-			}
-		}
-		//Update each entity
-		m_mEntityArray[i]->Update();
+		m_mEntityArray[index]->Update();
 	}
 }
 void Simplex::MyEntityManager::AddEntity(String a_sFileName, String a_sUniqueID)

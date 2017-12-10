@@ -27,7 +27,8 @@ sf::Image LoadImageFromResource(const std::string& name)
 Application::Application() {}
 Application::Application(Application const& input) {}
 Application& Application::operator=(Application const& input) { return *this; }
-Application::~Application(void) 
+
+Application::~Application(void)
 {
 	Release();
 	

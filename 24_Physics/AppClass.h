@@ -13,25 +13,25 @@ Date: 2017/06
 #include "LevelManager.h"
 #include "MyEntityManager.h"
 
-#include "MyOctant.h"
+#include "Node.h"
+#include <queue>
+#include <algorithm>
 
 namespace Simplex
 {
+	
 //Adding Application to the Simplex namespace
 class Application
 {
 	MyEntityManager* m_pEntityMngr = nullptr; //Entity Manager
-	MyOctant* m_pRoot = nullptr; //root of octree
-	uint m_uOctantID = -1; //Index of Octant to display
 	uint m_uObjects = 0; //Number of objects in the scene
-	uint m_uOctantLevels = 0; //Number of levels in the octree
 	std::vector<char> objectMap;
 	vector3 goalPos;
 	int goalIndex;
 	std::string currentLevel;
 	
 private:
-	String m_sProgrammer = "Alberto Bobadilla - labigm@rit.edu"; //programmer
+	String m_sProgrammer = "Benjamin Morgan - bxm8563@rit.edu"; //programmer
 
 	float xRotation = 0.0f;
 	float zRotation = 0.0f;
@@ -41,7 +41,17 @@ private:
 	float zPin = 0.0f;
 	int steveID;
 	vector3 spawnLocation;
+	int zombieSpawnIndex;
 	vector3 playerLocation = vector3();
+	vector3 zombiePosition = vector3();
+	int zombieID;
+	std::vector<float> weights;
+	const float INF = std::numeric_limits<float>::infinity();
+	std::vector<int> paths = std::vector<int>();
+	std::vector<int> finalPath = std::vector<int>();
+	bool keyPressedLastFrame = false;
+	int playerIndex;
+	int zombiePathIndex;
 
 	static ImGuiObject gui; //GUI object
 	bool m_bGUI_Main = true; //show Main GUI window?
@@ -60,7 +70,7 @@ private:
 	bool m_bFPC = false;// First Person Camera flag
 	bool m_bArcBall = false;// ArcBall flag
 	quaternion m_qArcBall; //ArcBall quaternion
-
+	std::vector<vector3> positions;
 	vector4 m_v4ClearColor; //Color of the scene
 	bool m_bRunning = false; //Is App running?
 	bool m_bModifier = false; //is shift pressed?
@@ -86,6 +96,10 @@ private:
 public:
 	
 #pragma region Constructor / Run / Destructor
+
+
+	void Recalculate( void );
+
 	/*
 	USAGE: Constructor
 	ARGUMENTS: ---
@@ -194,6 +208,10 @@ private:
 	OUTPUT: ---
 	*/
 	void ReleaseControllers(void);
+
+	bool astar( const std::vector<float> weights, const int height, const int width,
+		const int start, const int goal,
+		std::vector<int> &paths );
 #pragma endregion
 
 #pragma region Application Controls
@@ -221,7 +239,7 @@ private:
 	ARGUMENTS: float a_fSpeed = 0.005f
 	OUTPUT: ---
 	*/
-	void CameraRotation(float a_fSpeed = 0.005f);
+	void CameraRotation(float a_fSpeed = 0.015f);
 #pragma endregion
 
 #pragma region Process Events
